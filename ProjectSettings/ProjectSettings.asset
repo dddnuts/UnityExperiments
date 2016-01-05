@@ -10,7 +10,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Kakera Games
-  productName: UnityVoiceRecorder
+  productName: UnityExperiments
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
@@ -89,7 +89,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.kakeragames.experiments.unityvoicerecorder
+  bundleIdentifier: com.kakeragames.experiments.unity
   bundleVersion: 1.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
