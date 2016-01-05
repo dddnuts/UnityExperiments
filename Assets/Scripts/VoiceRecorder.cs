@@ -18,6 +18,11 @@ public class VoiceRecorder : MonoBehaviour
 
     private string device;
 
+    public VoiceRecorderState State
+    {
+        get { return state; }
+    }
+
     void Awake()
     {
         if (Microphone.devices.Length == 0)
@@ -47,6 +52,18 @@ public class VoiceRecorder : MonoBehaviour
         }
 
         state = VoiceRecorderState.Recording;
+
+        StartCoroutine(WaitForCompleteRecording());
+    }
+
+    private IEnumerator WaitForCompleteRecording()
+    {
+        while (Microphone.IsRecording(device))
+        {
+            yield return new WaitForSeconds(0.1F);
+        }
+
+        state = VoiceRecorderState.Ready;
     }
 
     public void StopRecording()
@@ -58,6 +75,7 @@ public class VoiceRecorder : MonoBehaviour
         }
 
         Microphone.End(device);
+        state = VoiceRecorderState.Ready;
     }
 
     public void PlayVoice()
@@ -82,6 +100,8 @@ public class VoiceRecorder : MonoBehaviour
 
         voicePlayer.clip = recordedClip;
         voicePlayer.Play();
+
+        state = VoiceRecorderState.Playing;
 
         StartCoroutine(WaitForCompletePlayingVoice());
     }
