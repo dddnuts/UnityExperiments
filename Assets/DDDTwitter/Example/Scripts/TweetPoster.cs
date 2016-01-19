@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.IO;
 
 public class TweetPoster : MonoBehaviour
 {
     [SerializeField]
     private InputField message;
+
+    [SerializeField]
+    private string screenshotName = "screenshot.png";
 
     private DDDTwitter twitter;
 
@@ -15,6 +20,14 @@ public class TweetPoster : MonoBehaviour
 
     public void OnClickPost()
     {
-        twitter.Post(message.text);
+        StartCoroutine(Post());
+    }
+
+    private IEnumerator Post()
+    {
+        Application.CaptureScreenshot(screenshotName);
+        yield return null;
+
+        twitter.Post(message.text, Path.Combine(Application.persistentDataPath, screenshotName));
     }
 }
